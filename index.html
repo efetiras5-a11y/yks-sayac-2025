@@ -20,12 +20,19 @@
       margin: 0;
       padding: 20px;
       color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     h1 {
       text-align: center;
       font-size: 28px;
       margin-bottom: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .menu {
@@ -36,7 +43,7 @@
       margin-bottom: 30px;
     }
 
-    .menu button {
+    .menu button, .calc, .toggle-theme {
       background-color: var(--primary);
       color: white;
       border: none;
@@ -47,7 +54,7 @@
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    .menu button:hover {
+    .menu button:hover, .calc:hover, .toggle-theme:hover {
       background-color: var(--hover);
       transform: scale(1.05);
     }
@@ -88,20 +95,16 @@
       text-align: center;
     }
 
-    button.calc {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+    .toggle-theme {
+      margin: 10px auto;
+      display: block;
     }
 
-    button.calc:hover {
-      background-color: var(--hover);
+    footer {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 40px;
+      color: #777;
     }
 
     @media (max-width: 600px) {
@@ -119,11 +122,20 @@
         padding: 6px;
       }
     }
+
+    body.dark {
+      --bg: #1e1e2f;
+      --card: #2c2c3e;
+      --text: #f0f0f0;
+      --primary: #ff6f61;
+      --hover: #e85c50;
+    }
   </style>
 </head>
 <body>
 
 <h1>📚 Sınav Geri Sayım ve Net Hesaplama Paneli</h1>
+<button class="toggle-theme" onclick="toggleTheme()">🌙 Karanlık Mod</button>
 
 <div class="menu">
   <button onclick="showSection('lgsSayaç')">LGS Sayaç</button>
@@ -133,7 +145,6 @@
   <button onclick="showSection('aytHesap')">AYT Hesaplama</button>
 </div>
 
-<!-- Sayaçlar -->
 <div id="lgsSayaç" class="section">
   <h2>LGS Sayaç</h2>
   <div id="lgsCountdown" class="countdown">Yükleniyor...</div>
@@ -149,7 +160,6 @@
   <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
 </div>
 
-<!-- TYT Hesaplama -->
 <div id="tytHesap" class="section">
   <h2>TYT Net Hesaplama</h2>
   <table>
@@ -162,7 +172,6 @@
   <button class="calc" onclick="hesaplaNet('tyt')">Hesapla</button>
 </div>
 
-<!-- AYT Hesaplama -->
 <div id="aytHesap" class="section">
   <h2>AYT Net Hesaplama</h2>
   <table>
@@ -174,6 +183,8 @@
   </table>
   <button class="calc" onclick="hesaplaNet('ayt')">Hesapla</button>
 </div>
+
+<footer>© 2025 Efe'nin Sınav Paneli | Tüm hakları saklıdır.</footer>
 
 <script>
   function showSection(id) {
@@ -189,22 +200,4 @@
     };
 
     for (const [id, date] of Object.entries(targets)) {
-      const now = new Date();
-      const diff = date - now;
-      const el = document.getElementById(id);
-
-      if (diff <= 0) {
-        el.innerText = "⏰ Zaman geldi!";
-        continue;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      el.innerText = `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
-    }
-  }
-
-  setInterval(update
+      const now
