@@ -2,202 +2,94 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Sınav Paneli</title>
+  <title>YKS Geri Sayım</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --primary: #4a90e2;
-      --hover: #357ABD;
-      --bg: #f9fafc;
-      --card: #ffffff;
-      --text: #333;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
       margin: 0;
-      padding: 20px;
-      color: var(--text);
-      transition: background 0.3s ease, color 0.3s ease;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #0f2027, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
     }
 
     h1 {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 30px;
-      animation: fadeIn 1s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    .menu button, .calc, .toggle-theme {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .menu button:hover, .calc:hover, .toggle-theme:hover {
-      background-color: var(--hover);
-      transform: scale(1.05);
-    }
-
-    .section {
-      display: none;
-      background: var(--card);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
+      font-size: 32px;
       margin-bottom: 20px;
-      transition: opacity 0.3s ease;
     }
 
     .countdown {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: bold;
-      margin-top: 10px;
+      margin-bottom: 15px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    .message {
+      font-size: 18px;
+      margin-bottom: 30px;
     }
 
-    th, td {
-      padding: 8px;
-      text-align: center;
-      border: 1px solid #ccc;
+    .buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
     }
 
-    input {
-      width: 60px;
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      text-align: center;
+    .buttons button {
+      background-color: #ffffff22;
+      border: none;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
 
-    .toggle-theme {
-      margin: 10px auto;
-      display: block;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 14px;
-      margin-top: 40px;
-      color: #777;
-    }
-
-    @media (max-width: 600px) {
-      .menu {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      input {
-        width: 100%;
-      }
-
-      table th, table td {
-        font-size: 14px;
-        padding: 6px;
-      }
-    }
-
-    body.dark {
-      --bg: #1e1e2f;
-      --card: #2c2c3e;
-      --text: #f0f0f0;
-      --primary: #ff6f61;
-      --hover: #e85c50;
+    .buttons button:hover {
+      background-color: #ffffff44;
     }
   </style>
 </head>
 <body>
 
-<h1>📚 Sınav Geri Sayım ve Net Hesaplama Paneli</h1>
-<button class="toggle-theme" onclick="toggleTheme()">🌙 Karanlık Mod</button>
+  <h1>YKS'ye Kaç Gün Kaldı?</h1>
+  <div class="countdown" id="yksCountdown">Yükleniyor...</div>
+  <div class="message">Her saniye seni başarıya bir adım daha yaklaştırıyor 👍</div>
 
-<div class="menu">
-  <button onclick="showSection('lgsSayaç')">LGS Sayaç</button>
-  <button onclick="showSection('tytSayaç')">TYT Sayaç</button>
-  <button onclick="showSection('tatilSayaç')">Yaz Tatili Sayaç</button>
-  <button onclick="showSection('tytHesap')">TYT Hesaplama</button>
-  <button onclick="showSection('aytHesap')">AYT Hesaplama</button>
-</div>
+  <div class="buttons">
+    <button>📤 WhatsApp</button>
+    <button>🐦 Twitter</button>
+    <button>📘 Facebook</button>
+  </div>
 
-<div id="lgsSayaç" class="section">
-  <h2>LGS Sayaç</h2>
-  <div id="lgsCountdown" class="countdown">Yükleniyor...</div>
-</div>
+  <script>
+    function updateCountdown() {
+      const examDate = new Date("2026-06-15T09:00:00");
+      const now = new Date();
+      const diff = examDate - now;
 
-<div id="tytSayaç" class="section">
-  <h2>TYT Sayaç</h2>
-  <div id="tytCountdown" class="countdown">Yükleniyor...</div>
-</div>
+      if (diff <= 0) {
+        document.getElementById("yksCountdown").innerText = "⏰ Sınav zamanı geldi!";
+        return;
+      }
 
-<div id="tatilSayaç" class="section">
-  <h2>Yaz Tatili Sayaç</h2>
-  <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
-</div>
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
 
-<div id="tytHesap" class="section">
-  <h2>TYT Net Hesaplama</h2>
-  <table>
-    <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
-    <tr><td>Türkçe</td><td><input id="tytDogru1"></td><td><input id="tytYanlis1"></td><td><span id="tytNet1">0</span></td></tr>
-    <tr><td>Sosyal</td><td><input id="tytDogru2"></td><td><input id="tytYanlis2"></td><td><span id="tytNet2">0</span></td></tr>
-    <tr><td>Matematik</td><td><input id="tytDogru3"></td><td><input id="tytYanlis3"></td><td><span id="tytNet3">0</span></td></tr>
-    <tr><td>Fen</td><td><input id="tytDogru4"></td><td><input id="tytYanlis4"></td><td><span id="tytNet4">0</span></td></tr>
-  </table>
-  <button class="calc" onclick="hesaplaNet('tyt')">Hesapla</button>
-</div>
+      document.getElementById("yksCountdown").innerText =
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
+    }
 
-<div id="aytHesap" class="section">
-  <h2>AYT Net Hesaplama</h2>
-  <table>
-    <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
-    <tr><td>Edebiyat</td><td><input id="aytDogru1"></td><td><input id="aytYanlis1"></td><td><span id="aytNet1">0</span></td></tr>
-    <tr><td>Tarih</td><td><input id="aytDogru2"></td><td><input id="aytYanlis2"></td><td><span id="aytNet2">0</span></td></tr>
-    <tr><td>Coğrafya</td><td><input id="aytDogru3"></td><td><input id="aytYanlis3"></td><td><span id="aytNet3">0</span></td></tr>
-    <tr><td>Felsefe</td><td><input id="aytDogru4"></td><td><input id="aytYanlis4"></td><td><span id="aytNet4">0</span></td></tr>
-  </table>
-  <button class="calc" onclick="hesaplaNet('ayt')">Hesapla</button>
-</div>
+    setInterval(updateCountdown, 1000);
+  </script>
 
-<footer>© 2025 Efe'nin Sınav Paneli | Tüm hakları saklıdır.</footer>
-
-<script>
-  function showSection(id) {
-    document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-  }
-
-  function updateCountdowns() {
-    const targets = {
-      lgsCountdown: new Date("2026-06-07"),
-      tytCountdown: new Date("2026-06-15"),
-      tatilCountdown: new Date("2026-06-19")
-    };
-
-    for (const [id, date] of Object.entries(targets)) {
-      const now
+</body>
+</html>
