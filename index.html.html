@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>YKS Geri Sayım Sayacı</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    #sayac {
+      font-size: 2em;
+      margin-top: 20px;
+      color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>YKS'ye Kaç Gün Kaldı?</h1>
+  <div id="sayac">Yükleniyor...</div>
+
+  <script>
+    // YKS tarihi (örnek: 15 Haziran 2026)
+    const yksTarihi = new Date("2026-06-15");
+
+    function geriSayim() {
+      const simdi = new Date();
+      const fark = yksTarihi - simdi;
+
+      if (fark <= 0) {
+        document.getElementById("sayac").innerText = "YKS başladı!";
+        return;
+      }
+
+      const gun = Math.floor(fark / (1000 * 60 * 60 * 24));
+      const saat = Math.floor((fark / (1000 * 60 * 60)) % 24);
+      const dakika = Math.floor((fark / (1000 * 60)) % 60);
+      const saniye = Math.floor((fark / 1000) % 60);
+
+      document.getElementById("sayac").innerText =
+        `${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
+    }
+
+    // Her saniyede güncelle
+    setInterval(geriSayim, 1000);
+  </script>
+
+</body>
+</html>
+
