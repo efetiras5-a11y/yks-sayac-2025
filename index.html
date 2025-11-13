@@ -4,68 +4,82 @@
   <meta charset="UTF-8">
   <title>Geri Sayım Sayaçları</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #1a2a6c, #b21f1f, #fdbb2d);
       color: #fff;
       text-align: center;
       padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     }
 
     .butonlar {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
     }
 
     .butonlar button {
-      background-color: #ffffff;
-      color: #203a43;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: #fff;
       border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: bold;
-      transition: transform 0.3s ease;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
     }
 
     .butonlar button:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
+      background: linear-gradient(45deg, #0072ff, #00c6ff);
     }
 
     .sayac {
       display: none;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: bold;
-      padding: 20px;
+      padding: 25px;
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       animation: fadeIn 1s ease-in-out;
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
+      border: 2px solid rgba(255,255,255,0.2);
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 24px; }
-      .sayac { font-size: 18px; padding: 15px; }
+      h1 { font-size: 26px; }
+      .sayac { font-size: 20px; padding: 20px; }
+      .butonlar button { font-size: 14px; padding: 10px 18px; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Geri Sayım Sayaçları</h1>
+  <h1>📅 Geri Sayım Sayaçları</h1>
 
   <div class="butonlar">
     <button onclick="goster('yks')">YKS Sayaç</button>
@@ -97,7 +111,7 @@
       const fark = hedefTarih - simdi;
 
       if (fark <= 0) {
-        document.getElementById(id).innerText = "Zaman geldi!";
+        document.getElementById(id).innerText = "⏰ Zaman geldi!";
         return;
       }
 
@@ -107,7 +121,7 @@
       const saniye = Math.floor((fark / 1000) % 60);
 
       document.getElementById(id).innerText =
-        `${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
+        `📌 ${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
     }
 
     setInterval(() => {
