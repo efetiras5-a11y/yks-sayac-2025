@@ -3,29 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>YKS Geri Sayım Sayacı</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      color: #333;
-    }
-    #sayac {
-      font-size: 2em;
-      margin-top: 20px;
-      color: #0077cc;
-    }
-  </style>
-  
-  <!-- 1. Karakter kodlaması -->
-  <meta charset="UTF-8">
-
-  <!-- 2. Sayfa başlığı -->
-  <title>YKS Geri Sayım Sayacı</title>
-
+ 
   <!-- 3. Tarayıcı uyumluluğu -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -54,6 +32,70 @@
     "url": "https://seninsiten.com"
   }
   </script>
+  <meta charset="UTF-8">
+<title>YKS Geri Sayım Sayacı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
+<meta name="keywords" content="YKS, sayaç, geri sayım, sınav, üniversite, TYT, AYT">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta property="og:title" content="YKS Geri Sayım Sayacı">
+<meta property="og:description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
+<meta property="og:image" content="https://seninsiten.com/yks-sayac-kapak.jpg">
+<meta property="og:url" content="https://seninsiten.com">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "YKS Geri Sayım Sayacı",
+  "url": "https://seninsiten.com"
+}
+</script>
+  <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    margin-top: 100px;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  #timer {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @media (max-width: 600px) {
+    body {
+      margin-top: 50px;
+      padding: 10px;
+    }
+
+    #timer {
+      font-size: 28px;
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -88,5 +130,6 @@
 
 </body>
 </html>
+
 
 
