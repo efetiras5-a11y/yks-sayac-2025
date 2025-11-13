@@ -2,184 +2,173 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Geri Sayım Sayaçları ve Net Hesaplama</title>
+  <title>Geri Sayım ve Net Hesaplama</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at top, #1a2a6c, #b21f1f, #fdbb2d);
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px;
-      min-height: 100vh;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+      color: #333;
     }
 
     h1 {
-      font-size: 36px;
+      text-align: center;
       margin-bottom: 30px;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      font-size: 28px;
     }
 
-    .butonlar {
-      margin-bottom: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
     }
 
-    .butonlar button {
-      background: linear-gradient(45deg, #00c6ff, #0072ff);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
+    .card {
+      background: #fff;
       border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      animation: fadeIn 0.8s ease;
     }
 
-    .butonlar button:hover {
-      transform: scale(1.08);
-      background: linear-gradient(45deg, #0072ff, #00c6ff);
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #0072ff;
     }
 
-    .sayac {
-      display: none;
-      font-size: 24px;
+    .countdown {
+      font-size: 18px;
       font-weight: bold;
-      padding: 25px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      animation: fadeIn 1s ease-in-out;
-      max-width: 600px;
-      margin: 20px auto;
-      border: 2px solid rgba(255,255,255,0.2);
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ccc;
     }
 
     input {
-      padding: 8px;
-      margin: 5px;
-      border-radius: 8px;
-      border: none;
-      width: 80px;
+      width: 60px;
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       text-align: center;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #0072ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 26px; }
-      .sayac { font-size: 20px; padding: 20px; }
-      .butonlar button { font-size: 14px; padding: 10px 18px; }
+    button:hover {
+      background-color: #005bd1;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <h1>📅 Geri Sayım Sayaçları ve Net Hesaplama</h1>
+  <h1>📚 Geri Sayım ve Net Hesaplama Paneli</h1>
 
-  <div class="butonlar">
-    <button onclick="goster('yks')">YKS Sayaç</button>
-    <button onclick="goster('ayt')">AYT Sayaç</button>
-    <button onclick="goster('lgs')">LGS Sayaç</button>
-    <button onclick="goster('tatil')">Yaz Tatili Sayaç</button>
-    <button onclick="goster('yksHesap')">YKS Net Hesaplama</button>
-    <button onclick="goster('lgsHesap')">LGS Net Hesaplama</button>
-  </div>
+  <div class="container">
 
-  <div id="yks" class="sayac">Yükleniyor...</div>
-  <div id="ayt" class="sayac">Yükleniyor...</div>
-  <div id="lgs" class="sayac">Yükleniyor...</div>
-  <div id="tatil" class="sayac">Yükleniyor...</div>
+    <!-- YKS Sayaç -->
+    <div class="card">
+      <h2>YKS Sayaç</h2>
+      <div id="yksCountdown" class="countdown">Yükleniyor...</div>
+    </div>
 
-  <div id="yksHesap" class="sayac">
-    <h3>TYT</h3>
-    Doğru: <input type="number" id="tytDogru" min="0" max="120">
-    Yanlış: <input type="number" id="tytYanlis" min="0" max="120"><br><br>
-    <button onclick="hesaplaTYT()">TYT Net Hesapla</button>
-    <p id="tytSonuc"></p>
+    <!-- LGS Sayaç -->
+    <div class="card">
+      <h2>LGS Sayaç</h2>
+      <div id="lgsCountdown" class="countdown">Yükleniyor...</div>
+    </div>
 
-    <h3>AYT</h3>
-    Doğru: <input type="number" id="aytDogru" min="0" max="160">
-    Yanlış: <input type="number" id="aytYanlis" min="0" max="160"><br><br>
-    <button onclick="hesaplaAYT()">AYT Net Hesapla</button>
-    <p id="aytSonuc"></p>
-  </div>
+    <!-- LGS Net Hesaplama -->
+    <div class="card">
+      <h2>LGS Net Hesaplama</h2>
+      <table>
+        <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
+        <tr><td>Türkçe</td><td><input id="dogru1"></td><td><input id="yanlis1"></td><td><span id="net1">0</span></td></tr>
+        <tr><td>T.C. İnkılap</td><td><input id="dogru2"></td><td><input id="yanlis2"></td><td><span id="net2">0</span></td></tr>
+        <tr><td>Din Kültürü</td><td><input id="dogru3"></td><td><input id="yanlis3"></td><td><span id="net3">0</span></td></tr>
+        <tr><td>Yabancı Dil</td><td><input id="dogru4"></td><td><input id="yanlis4"></td><td><span id="net4">0</span></td></tr>
+        <tr><td>Matematik</td><td><input id="dogru5"></td><td><input id="yanlis5"></td><td><span id="net5">0</span></td></tr>
+        <tr><td>Fen Bilimleri</td><td><input id="dogru6"></td><td><input id="yanlis6"></td><td><span id="net6">0</span></td></tr>
+      </table>
+      <button onclick="hesaplaLGS()">Hesapla</button>
+    </div>
 
-  <div id="lgsHesap" class="sayac">
-    <h3>LGS</h3>
-    Doğru: <input type="number" id="lgsDogru" min="0" max="90">
-    Yanlış: <input type="number" id="lgsYanlis" min="0" max="90"><br><br>
-    <button onclick="hesaplaLGS()">LGS Net Hesapla</button>
-    <p id="lgsSonuc"></p>
+    <!-- TYT Net Hesaplama -->
+    <div class="card">
+      <h2>TYT Net Hesaplama</h2>
+      <table>
+        <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
+        <tr><td>Türkçe</td><td><input id="tytDogru1"></td><td><input id="tytYanlis1"></td><td><span id="tytNet1">0</span></td></tr>
+        <tr><td>Sosyal</td><td><input id="tytDogru2"></td><td><input id="tytYanlis2"></td><td><span id="tytNet2">0</span></td></tr>
+        <tr><td>Matematik</td><td><input id="tytDogru3"></td><td><input id="tytYanlis3"></td><td><span id="tytNet3">0</span></td></tr>
+        <tr><td>Fen</td><td><input id="tytDogru4"></td><td><input id="tytYanlis4"></td><td><span id="tytNet4">0</span></td></tr>
+      </table>
+      <button onclick="hesaplaTYT()">Hesapla</button>
+    </div>
+
   </div>
 
   <script>
-    const tarihBilgileri = {
-      yks: new Date("2026-06-15"),
-      ayt: new Date("2026-06-16"),
-      lgs: new Date("2026-06-07"),
-      tatil: new Date("2026-06-19")
-    };
-
-    function goster(id) {
-      document.querySelectorAll('.sayac').forEach(div => div.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-
-    function geriSayim(id, hedefTarih) {
-      const simdi = new Date();
-      const fark = hedefTarih - simdi;
-
-      if (fark <= 0) {
+    // Sayaçlar
+    function countdown(id, date) {
+      const now = new Date();
+      const diff = date - now;
+      if (diff <= 0) {
         document.getElementById(id).innerText = "⏰ Zaman geldi!";
         return;
       }
-
-      const gun = Math.floor(fark / (1000 * 60 * 60 * 24));
-      const saat = Math.floor((fark / (1000 * 60 * 60)) % 24);
-      const dakika = Math.floor((fark / (1000 * 60)) % 60);
-      const saniye = Math.floor((fark / 1000) % 60);
-
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
       document.getElementById(id).innerText =
-        `📌 ${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
     }
 
     setInterval(() => {
-      for (const id in tarihBilgileri) {
-        geriSayim(id, tarihBilgileri[id]);
-      }
+      countdown("yksCountdown", new Date("2026-06-15"));
+      countdown("lgsCountdown", new Date("2026-06-07"));
     }, 1000);
 
-    function hesaplaTYT() {
-      const dogru = parseInt(document.getElementById("tytDogru").value) || 0;
-      const yanlis = parseInt(document.getElementById("tytYanlis").value) || 0;
-      const net = dogru - (yanlis / 4);
-      document.getElementById("tytSonuc").innerText = `TYT Net: ${net.toFixed(2)}`;
-    }
-
-    function hesaplaAYT() {
-      const dogru = parseInt(document.getElementById("aytDogru").value) || 0;
-      const yanlis = parseInt(document.getElementById("aytYanlis").value) || 0;
-      const net = dogru - (yanlis / 4);
-      document.getElementById("aytSonuc").innerText = `AYT Net: ${net.toFixed(2)}`;
-    }
-
+    // LGS Hesaplama
     function hesaplaLGS() {
-      const dogru = parseInt(document.getElementById("lgsDogru").value) || 0;
-      const yanlis = parseInt(document.getElementById("lgsYanlis").value) || 0;
-      const net = dogru - (yanlis / 4);
-      document.getElementById("lgsSonuc").innerText = `LGS Net: ${net.toFixed(2)}`;
+      for (let i = 1; i <= 6; i++) {
+        const dogru = parseInt(document.getElementById(`dogru${i}`).value) || 0;
+        const yanlis = parseInt(document.getElementById(`yanlis${i}`).value) || 0;
+        const net = dogru - (yanlis / 4);
+        document.getElementById(`net${i}`).innerText = net.toFixed(2);
+      }
     }
-  </script>
 
-</body>
-</html>
+    // TYT Hesaplama
+    function hesaplaTYT() {
+      for (let i = 1; i <= 4; i++) {
+        const dogru = parseInt(document.getElementById(`tytDogru${i}`).value) || 0;
+        const yanlis = parseInt(document.getElementById(`tytYanlis${i}`).value) || 0;
+        const net = dogru - (yanlis / 4);
