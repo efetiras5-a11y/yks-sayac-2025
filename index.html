@@ -5,18 +5,27 @@
   <title>Sınav Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --primary: #4a90e2;
+      --hover: #357ABD;
+      --bg: #f9fafc;
+      --card: #ffffff;
+      --text: #333;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f4f6f9;
+      background: var(--bg);
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: var(--text);
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 30px;
       font-size: 28px;
+      margin-bottom: 30px;
     }
 
     .menu {
@@ -28,26 +37,29 @@
     }
 
     .menu button {
-      background-color: #0072ff;
+      background-color: var(--primary);
       color: white;
       border: none;
       padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .menu button:hover {
-      background-color: #005bd1;
+      background-color: var(--hover);
+      transform: scale(1.05);
     }
 
     .section {
       display: none;
-      background: white;
+      background: var(--card);
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
       margin-bottom: 20px;
+      transition: opacity 0.3s ease;
     }
 
     .countdown {
@@ -79,16 +91,33 @@
     button.calc {
       margin-top: 10px;
       padding: 8px 16px;
-      background-color: #0072ff;
+      background-color: var(--primary);
       color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      transition: background-color 0.3s ease;
     }
 
     button.calc:hover {
-      background-color: #005bd1;
+      background-color: var(--hover);
+    }
+
+    @media (max-width: 600px) {
+      .menu {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      table th, table td {
+        font-size: 14px;
+        padding: 6px;
+      }
     }
   </style>
 </head>
@@ -130,7 +159,7 @@
     <tr><td>Matematik</td><td><input id="tytDogru3"></td><td><input id="tytYanlis3"></td><td><span id="tytNet3">0</span></td></tr>
     <tr><td>Fen</td><td><input id="tytDogru4"></td><td><input id="tytYanlis4"></td><td><span id="tytNet4">0</span></td></tr>
   </table>
-  <button class="calc" onclick="hesaplaTYT()">Hesapla</button>
+  <button class="calc" onclick="hesaplaNet('tyt')">Hesapla</button>
 </div>
 
 <!-- AYT Hesaplama -->
@@ -143,7 +172,7 @@
     <tr><td>Coğrafya</td><td><input id="aytDogru3"></td><td><input id="aytYanlis3"></td><td><span id="aytNet3">0</span></td></tr>
     <tr><td>Felsefe</td><td><input id="aytDogru4"></td><td><input id="aytYanlis4"></td><td><span id="aytNet4">0</span></td></tr>
   </table>
-  <button class="calc" onclick="hesaplaAYT()">Hesapla</button>
+  <button class="calc" onclick="hesaplaNet('ayt')">Hesapla</button>
 </div>
 
 <script>
@@ -152,37 +181,30 @@
     document.getElementById(id).style.display = 'block';
   }
 
-  function countdown(id, date) {
-    const now = new Date();
-    const diff = date - now;
-    if (diff <= 0) {
-      document.getElementById(id).innerText = "⏰ Zaman geldi!";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    document.getElementById(id).innerText =
-      `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
-  }
+  function updateCountdowns() {
+    const targets = {
+      lgsCountdown: new Date("2026-06-07"),
+      tytCountdown: new Date("2026-06-15"),
+      tatilCountdown: new Date("2026-06-19")
+    };
 
-  setInterval(() => {
-    countdown("lgsCountdown", new Date("2026-06-07"));
-    countdown("tytCountdown", new Date("2026-06-15"));
-    countdown("tatilCountdown", new Date("2026-06-19"));
-  }, 1000);
+    for (const [id, date] of Object.entries(targets)) {
+      const now = new Date();
+      const diff = date - now;
+      const el = document.getElementById(id);
 
-  function hesaplaTYT() {
-    for (let i = 1; i <= 4; i++) {
-      const dogru = parseInt(document.getElementById(`tytDogru${i}`).value) || 0;
-      const yanlis = parseInt(document.getElementById(`tytYanlis${i}`).value) || 0;
-      const net = dogru - (yanlis / 4);
-      document.getElementById(`tytNet${i}`).innerText = net.toFixed(2);
+      if (diff <= 0) {
+        el.innerText = "⏰ Zaman geldi!";
+        continue;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      el.innerText = `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
     }
   }
 
-  function hesaplaAYT() {
-    for (let i = 1; i <= 4; i++) {
-      const dogru = parseInt(document.getElementById(`aytDogru${i}`).value) || 0;
-      const yanlis = parseInt(document.getElementBy
+  setInterval(update
