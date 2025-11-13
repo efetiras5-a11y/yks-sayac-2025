@@ -2,94 +2,54 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>YKS Geri Sayım Sayacı</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Geri Sayım Sayaçları</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
-  <meta name="keywords" content="YKS, sayaç, geri sayım, sınav, üniversite, TYT, AYT">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MHTFKQHW53"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MHTFKQHW53');
-  </script>
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5489447719385973"
-     crossorigin="anonymous"></script>
-
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
     }
 
     h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    #sayac {
       font-size: 32px;
-      font-weight: bold;
-      padding: 25px 30px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      animation: pulse 2s infinite;
+      margin-bottom: 20px;
     }
 
-    .mesaj {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #ccc;
-      font-style: italic;
-      animation: fadeIn 2s ease-in-out;
+    .butonlar {
+      margin-bottom: 30px;
     }
 
-    .reklam {
-      margin-top: 30px;
-      max-width: 600px;
-    }
-
-    .paylas {
-      margin-top: 30px;
-    }
-
-    .paylas button {
+    .butonlar button {
       background-color: #ffffff;
       color: #203a43;
       border: none;
       padding: 10px 20px;
       margin: 5px;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
       transition: transform 0.3s ease;
     }
 
-    .paylas button:hover {
+    .butonlar button:hover {
       transform: scale(1.05);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .sayac {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-in-out;
+      max-width: 500px;
+      margin: 0 auto;
     }
 
     @keyframes fadeIn {
@@ -98,55 +58,46 @@
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 24px;
-      }
-
-      #sayac {
-        font-size: 24px;
-        padding: 20px;
-      }
-
-      .mesaj {
-        font-size: 16px;
-      }
+      h1 { font-size: 24px; }
+      .sayac { font-size: 18px; padding: 15px; }
     }
   </style>
 </head>
 <body>
 
-  <h1>YKS'ye Kaç Gün Kaldı?</h1>
-  <div id="sayac">Yükleniyor...</div>
-  <div class="mesaj">Her saniye seni başarıya bir adım daha yaklaştırıyor 💪</div>
+  <h1>Geri Sayım Sayaçları</h1>
 
-  <!-- Reklam Alanı -->
-  <div class="reklam">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5489447719385973"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+  <div class="butonlar">
+    <button onclick="goster('yks')">YKS Sayaç</button>
+    <button onclick="goster('ayt')">AYT Sayaç</button>
+    <button onclick="goster('lgs')">LGS Sayaç</button>
+    <button onclick="goster('tatil')">Yaz Tatili Sayaç</button>
   </div>
 
-  <div class="paylas">
-    <button onclick="paylas('whatsapp')">WhatsApp</button>
-    <button onclick="paylas('twitter')">X (Twitter)</button>
-    <button onclick="paylas('facebook')">Facebook</button>
-  </div>
+  <div id="yks" class="sayac">Yükleniyor...</div>
+  <div id="ayt" class="sayac">Yükleniyor...</div>
+  <div id="lgs" class="sayac">Yükleniyor...</div>
+  <div id="tatil" class="sayac">Yükleniyor...</div>
 
   <script>
-    const yksTarihi = new Date("2026-06-15");
+    const tarihBilgileri = {
+      yks: new Date("2026-06-15"),
+      ayt: new Date("2026-06-16"),
+      lgs: new Date("2026-06-07"),
+      tatil: new Date("2026-06-19")
+    };
 
-    function geriSayim() {
+    function goster(id) {
+      document.querySelectorAll('.sayac').forEach(div => div.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function geriSayim(id, hedefTarih) {
       const simdi = new Date();
-      const fark = yksTarihi - simdi;
+      const fark = hedefTarih - simdi;
 
       if (fark <= 0) {
-        document.getElementById("sayac").innerText = "YKS başladı!";
+        document.getElementById(id).innerText = "Zaman geldi!";
         return;
       }
 
@@ -155,29 +106,16 @@
       const dakika = Math.floor((fark / (1000 * 60)) % 60);
       const saniye = Math.floor((fark / 1000) % 60);
 
-      document.getElementById("sayac").innerText =
+      document.getElementById(id).innerText =
         `${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
     }
 
-    setInterval(geriSayim, 1000);
-
-    function paylas(platform) {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent("YKS'ye ne kadar kaldığını öğrenmek için bu sayfaya göz at! 🎓");
-
-      let link = "";
-      if (platform === "whatsapp") {
-        link = `https://wa.me/?text=${text}%20${url}`;
-      } else if (platform === "twitter") {
-        link = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-      } else if (platform === "facebook") {
-        link = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    setInterval(() => {
+      for (const id in tarihBilgileri) {
+        geriSayim(id, tarihBilgileri[id]);
       }
-
-      window.open(link, "_blank");
-    }
+    }, 1000);
   </script>
 
 </body>
 </html>
-
