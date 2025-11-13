@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>YKS Geri Sayım Sayacı</title>
- 
-  <!-- 3. Tarayıcı uyumluluğu -->
+
+  <!-- Tarayıcı uyumluluğu -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <!-- 4. Mobil uyumluluk -->
+  <!-- Mobil uyumluluk -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 5. SEO için açıklama ve anahtar kelimeler -->
+  <!-- SEO -->
   <meta name="description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
   <meta name="keywords" content="YKS, sayaç, geri sayım, sınav, üniversite, TYT, AYT">
 
-  <!-- 6. Favicon -->
+  <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-  <!-- 7. Sosyal medya paylaşımı için Open Graph -->
+  <!-- Sosyal medya paylaşımı -->
   <meta property="og:title" content="YKS Geri Sayım Sayacı">
   <meta property="og:description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
   <meta property="og:image" content="https://seninsiten.com/yks-sayac-kapak.jpg">
   <meta property="og:url" content="https://seninsiten.com">
 
-  <!-- 8. Google için yapılandırılmış veri -->
+  <!-- Google için yapılandırılmış veri -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,70 +32,54 @@
     "url": "https://seninsiten.com"
   }
   </script>
-  <meta charset="UTF-8">
-<title>YKS Geri Sayım Sayacı</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
-<meta name="keywords" content="YKS, sayaç, geri sayım, sınav, üniversite, TYT, AYT">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<meta property="og:title" content="YKS Geri Sayım Sayacı">
-<meta property="og:description" content="YKS sınavına kalan süreyi takip edin. Geri sayım sayacı ile motivasyonunuzu artırın.">
-<meta property="og:image" content="https://seninsiten.com/yks-sayac-kapak.jpg">
-<meta property="og:url" content="https://seninsiten.com">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "YKS Geri Sayım Sayacı",
-  "url": "https://seninsiten.com"
-}
-</script>
+
+  <!-- Stil -->
   <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
-    margin-top: 100px;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: #ffffff;
-  }
-
-  h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-
-  #timer {
-    font-size: 40px;
-    font-weight: bold;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    display: inline-block;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  @media (max-width: 600px) {
     body {
-      margin-top: 50px;
-      padding: 10px;
-    }
-
-    #timer {
-      font-size: 28px;
-      padding: 15px;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 36px;
+      margin-bottom: 20px;
     }
-  }
-</style>
+
+    #sayac {
+      font-size: 40px;
+      font-weight: bold;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        margin-top: 50px;
+        padding: 10px;
+      }
+
+      #sayac {
+        font-size: 28px;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -103,7 +87,6 @@
   <div id="sayac">Yükleniyor...</div>
 
   <script>
-    // YKS tarihi (örnek: 15 Haziran 2026)
     const yksTarihi = new Date("2026-06-15");
 
     function geriSayim() {
@@ -124,12 +107,8 @@
         `${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye kaldı`;
     }
 
-    // Her saniyede güncelle
     setInterval(geriSayim, 1000);
   </script>
 
 </body>
 </html>
-
-
-
