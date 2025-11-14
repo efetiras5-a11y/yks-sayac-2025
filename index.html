@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Geri Sayım Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google indeksleme için eklendi -->
+  <meta name="robots" content="index, follow">
+
   <style>
     body {
       margin: 0;
@@ -124,9 +128,9 @@
     }
 
     const targets = {
-      lgs: getNextDate(6, 1, 9),      // 1 Haziran 09:00
-      tyt: getNextDate(6, 14, 10),    // 14 Haziran 10:00
-      tatil: getNextDate(6, 20, 12)   // 20 Haziran 12:00
+      lgs: getNextDate(6, 1, 9),
+      tyt: getNextDate(6, 14, 10),
+      tatil: getNextDate(6, 20, 12)
     };
 
     function updateCountdown(id) {
