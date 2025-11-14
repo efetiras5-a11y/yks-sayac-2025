@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <title>Geri Sayım Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Google indeksleme için eklendi -->
   <meta name="robots" content="index, follow">
-
-  <!-- Google Search Console doğrulama etiketi -->
   <meta name="google-site-verification" content="y2LjsoLMCmnqRdC4hrUBF-pCCCn8N3PrBlBRh_TTF3U" />
 
   <style>
@@ -85,6 +81,11 @@
       color: white;
     }
 
+    .aratatil-theme {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: white;
+    }
+
     .share-buttons {
       text-align: center;
       margin-top: 30px;
@@ -118,6 +119,7 @@
     <button onclick="showSection('lgs')">LGS</button>
     <button onclick="showSection('tyt')">TYT</button>
     <button onclick="showSection('tatil')">Yaz Tatili</button>
+    <button onclick="showSection('aratatil')">Ara Tatil</button>
   </div>
 
   <div id="lgs" class="section lgs-theme">
@@ -133,6 +135,11 @@
   <div id="tatil" class="section tatil-theme">
     <h2>Yaz Tatiline Kalan Süre</h2>
     <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
+  </div>
+
+  <div id="aratatil" class="section aratatil-theme">
+    <h2>Ara Tatile Kalan Süre</h2>
+    <div id="aratatilCountdown" class="countdown">Yükleniyor...</div>
   </div>
 
   <div class="share-buttons">
@@ -167,7 +174,8 @@
     const targets = {
       lgs: getNextDate(6, 1, 9),
       tyt: getNextDate(6, 14, 10),
-      tatil: getNextDate(6, 20, 12)
+      tatil: getNextDate(6, 20, 12),
+      aratatil: getNextDate(11, 8, 9)
     };
 
     function updateCountdown(id) {
