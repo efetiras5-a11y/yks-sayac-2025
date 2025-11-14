@@ -113,18 +113,34 @@
   <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
 
   <script>
+    function getNextDate(month, day, hour = 10) {
+      const now = new Date();
+      let year = now.getFullYear();
+      let target = new Date(year, month - 1, day, hour, 0, 0);
+      if (target < now) {
+        target = new Date(year + 1, month - 1, day, hour, 0, 0);
+      }
+      return target;
+    }
+
     const targets = {
-      lgs: new Date("2025-06-01T09:00:00"),
-      tyt: new Date("2025-06-14T10:00:00"),
-      tatil: new Date("2025-06-20T12:00:00")
+      lgs: getNextDate(6, 1, 9),      // 1 Haziran 09:00
+      tyt: getNextDate(6, 14, 10),    // 14 Haziran 10:00
+      tatil: getNextDate(6, 20, 12)   // 20 Haziran 12:00
     };
 
     function updateCountdown(id) {
       const now = new Date();
-      const diff = targets[id] - now;
+      const target = targets[id];
+      const diff = target - now;
 
-      if (diff <= 0) {
-        document.getElementById(id + "Countdown").innerText = "Süre doldu!";
+      const isToday =
+        now.getFullYear() === target.getFullYear() &&
+        now.getMonth() === target.getMonth() &&
+        now.getDate() === target.getDate();
+
+      if (diff <= 0 && isToday) {
+        document.getElementById(id + "Countdown").innerText = "🎉 Süre doldu!";
         return;
       }
 
