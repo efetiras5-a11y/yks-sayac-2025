@@ -92,6 +92,24 @@
       color: white;
     }
 
+    .share-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .share-buttons a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .share-buttons img {
+      width: 24px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
@@ -122,6 +140,22 @@
   <div id="tatil" class="section tatil-theme">
     <h2>Yaz Tatiline Kalan Süre</h2>
     <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
+  </div>
+
+  <div class="share-buttons">
+    <p>Bu sayfayı paylaş:</p>
+    <a href="https://api.whatsapp.com/send?text=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">WhatsApp
+    </a>
+    <a href="https://twitter.com/intent/tweet?text=YKS%20Geri%20Sayım%20Paneli%202025&url=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter">Twitter
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">Facebook
+    </a>
+    <p style="margin-top:10px; font-size:13px; color:#555;">
+      Instagram bağlantı paylaşımını desteklemez. Linki profilinize veya hikayenize ekleyebilirsiniz.
+    </p>
   </div>
 
   <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
@@ -182,7 +216,4 @@
       window.activeTimer = setInterval(() => updateCountdown(id), 1000);
     }
 
-    showSection("lgs");
-  </script>
-</body>
-</html>
+    showSection
