@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YKS Geri Sayım ve Net Hesaplama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
       --bg: #f0f0f0;
@@ -124,13 +124,11 @@
     <button onclick="showSection('netayt')">AYT Net</button>
   </div>
 
-  <!-- Geri Sayım Bölümleri -->
   <div id="tyt" class="section"><h2>TYT</h2><div id="tytCountdown" class="countdown"></div></div>
   <div id="ayt" class="section"><h2>AYT</h2><div id="aytCountdown" class="countdown"></div></div>
   <div id="yks" class="section"><h2>YKS</h2><div id="yksCountdown" class="countdown"></div></div>
   <div id="ly" class="section"><h2>LY</h2><div id="lyCountdown" class="countdown"></div></div>
 
-  <!-- TYT Net Hesaplama -->
   <div id="nettyt" class="section">
     <h2>TYT Net Hesaplama</h2>
     <table>
@@ -143,7 +141,6 @@
     <button onclick="hesaplaTYT()">Hesapla</button>
   </div>
 
-  <!-- AYT Net Hesaplama -->
   <div id="netayt" class="section">
     <h2>AYT Net Hesaplama</h2>
     <table>
@@ -169,4 +166,11 @@
       ly: new Date('2025-06-20T10:00:00')
     };
 
-    function
+    function updateCountdowns() {
+      const now = new Date();
+      for (const [id, date] of Object.entries(targets)) {
+        const diff = date - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds =
