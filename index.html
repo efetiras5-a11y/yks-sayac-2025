@@ -6,20 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="y2LjsoLMCmnqRdC4hrUBF-pCCCn8N3PrBlBRh_TTF3U" />
-
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       transition: background 0.5s ease, color 0.5s ease;
     }
-
     h1 {
       text-align: center;
       margin: 20px;
       font-size: 28px;
     }
-
     .menu {
       display: flex;
       justify-content: center;
@@ -27,7 +24,6 @@
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
-
     .menu button {
       padding: 10px 20px;
       border: none;
@@ -36,13 +32,11 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
     .menu button:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       z-index: 1;
     }
-
     .section {
       display: none;
       text-align: center;
@@ -53,44 +47,36 @@
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     .section.show {
       display: block;
       opacity: 1;
       transform: translateY(0);
     }
-
     .countdown {
       font-size: 24px;
       font-weight: bold;
       margin-top: 15px;
     }
-
     .lgs-theme {
       background: linear-gradient(to right, #ff6a00, #ee0979);
       color: white;
     }
-
     .tyt-theme {
       background: linear-gradient(to right, #00c6ff, #0072ff);
       color: white;
     }
-
     .tatil-theme {
       background: linear-gradient(to right, #43cea2, #185a9d);
       color: white;
     }
-
     .donem-theme {
       background: linear-gradient(to right, #f7971e, #ffd200);
       color: white;
     }
-
     .share-buttons {
       text-align: center;
       margin-top: 30px;
     }
-
     .share-buttons a {
       display: inline-block;
       margin: 10px;
@@ -102,18 +88,15 @@
       border: 1px solid #ccc;
       transition: all 0.3s ease;
     }
-
     .share-buttons a:hover {
       background: #eaeaea;
       transform: scale(1.05);
     }
-
     .share-buttons img {
       width: 24px;
       vertical-align: middle;
       margin-right: 6px;
     }
-
     footer {
       text-align: center;
       margin-top: 40px;
@@ -124,34 +107,28 @@
 </head>
 <body>
   <h1>Geri Sayım Paneli</h1>
-
   <div class="menu">
     <button onclick="showSection('lgs')">LGS</button>
     <button onclick="showSection('tyt')">TYT</button>
     <button onclick="showSection('tatil')">Yaz Tatili</button>
     <button onclick="showSection('donem')">Dönem Tatili</button>
   </div>
-
   <div id="lgs" class="section lgs-theme">
     <h2>LGS'ye Kalan Süre</h2>
     <div id="lgsCountdown" class="countdown">Yükleniyor...</div>
   </div>
-
   <div id="tyt" class="section tyt-theme">
     <h2>TYT'ye Kalan Süre</h2>
     <div id="tytCountdown" class="countdown">Yükleniyor...</div>
   </div>
-
   <div id="tatil" class="section tatil-theme">
     <h2>Yaz Tatiline Kalan Süre</h2>
     <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
   </div>
-
   <div id="donem" class="section donem-theme">
     <h2>Dönem Tatiline Kalan Süre</h2>
     <div id="donemCountdown" class="countdown">Yükleniyor...</div>
   </div>
-
   <div class="share-buttons">
     <p>Bu sayfayı paylaş:</p>
     <a href="https://api.whatsapp.com/send?text=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
@@ -167,9 +144,7 @@
       Instagram bağlantı paylaşımını desteklemez. Linki profilinize veya hikayenize ekleyebilirsiniz.
     </p>
   </div>
-
   <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
-
   <script>
     function getNextDate(month, day, hour = 10) {
       const now = new Date();
@@ -180,34 +155,46 @@
       }
       return target;
     }
-
     const targets = {
       lgs: getNextDate(6, 1, 9),
       tyt: getNextDate(6, 14, 10),
       tatil: getNextDate(6, 20, 12),
       donem: getNextDate(1, 19, 9)
     };
-
     function updateCountdown(id) {
       const now = new Date();
       const target = targets[id];
       const diff = target - now;
-
       const isToday =
         now.getFullYear() === target.getFullYear() &&
         now.getMonth() === target.getMonth() &&
         now.getDate() === target.getDate();
-
       if (diff <= 0 && isToday) {
         document.getElementById(id + "Countdown").innerText = "🎉 Süre doldu!";
         return;
       }
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
-
       document.getElementById(id + "Countdown").innerText =
         `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
-   
+    }
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("show");
+        sec.style.display = "none";
+      });
+      const active = document.getElementById(id);
+      if (active) {
+        active.style.display = "block";
+        setTimeout(() => active.classList.add("show"), 10);
+        updateCountdown(id);
+        clearInterval(window.activeTimer);
+        window.activeTimer = setInterval(() => updateCountdown(id), 1000);
+      }
+    }
+    showSection("lgs");
+  </script>
+</body>
+</html>
