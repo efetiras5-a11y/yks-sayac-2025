@@ -2,94 +2,171 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>YKS Geri Sayım</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YKS Geri Sayım ve Net Hesaplama</title>
   <style>
+    :root {
+      --bg: #f0f0f0;
+      --text: #000;
+      --primary: #007bff;
+      --hover: #0056b3;
+      --shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #fff;
+      --primary: #bb86fc;
+      --hover: #985eff;
+    }
+
     body {
-      margin: 0;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #0f2027, #2c5364);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     h1 {
-      font-size: 32px;
+      text-align: center;
+      font-size: 28px;
       margin-bottom: 20px;
     }
 
-    .countdown {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .message {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .buttons button {
-      background-color: #ffffff22;
+    .toggle-theme {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      background-color: var(--primary);
+      color: white;
       border: none;
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      font-weight: bold;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .menu button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    .buttons button:hover {
-      background-color: #ffffff44;
+    .menu button:hover {
+      background-color: var(--hover);
+    }
+
+    .section {
+      display: none;
+      background: var(--bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .countdown {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 7px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+
+    input {
+      width: 60px;
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      margin-top: 30px;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <h1>YKS Geri Sayım ve Net Hesaplama Paneli</h1>
+  <button class="toggle-theme" onclick="toggleTheme()">Temayı Değiştir</button>
 
-  <h1>YKS'ye Kaç Gün Kaldı?</h1>
-  <div class="countdown" id="yksCountdown">Yükleniyor...</div>
-  <div class="message">Her saniye seni başarıya bir adım daha yaklaştırıyor 👍</div>
-
-  <div class="buttons">
-    <button>📤 WhatsApp</button>
-    <button>🐦 Twitter</button>
-    <button>📘 Facebook</button>
+  <div class="menu">
+    <button onclick="showSection('tyt')">TYT</button>
+    <button onclick="showSection('ayt')">AYT</button>
+    <button onclick="showSection('yks')">YKS</button>
+    <button onclick="showSection('ly')">LY</button>
+    <button onclick="showSection('nettyt')">TYT Net</button>
+    <button onclick="showSection('netayt')">AYT Net</button>
   </div>
 
+  <!-- Geri Sayım Bölümleri -->
+  <div id="tyt" class="section"><h2>TYT</h2><div id="tytCountdown" class="countdown"></div></div>
+  <div id="ayt" class="section"><h2>AYT</h2><div id="aytCountdown" class="countdown"></div></div>
+  <div id="yks" class="section"><h2>YKS</h2><div id="yksCountdown" class="countdown"></div></div>
+  <div id="ly" class="section"><h2>LY</h2><div id="lyCountdown" class="countdown"></div></div>
+
+  <!-- TYT Net Hesaplama -->
+  <div id="nettyt" class="section">
+    <h2>TYT Net Hesaplama</h2>
+    <table>
+      <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
+      <tr><td>Türkçe</td><td><input id="tytTurkceD"></td><td><input id="tytTurkceY"></td><td><span id="tytTurkceN">0</span></td></tr>
+      <tr><td>Sosyal</td><td><input id="tytSosyalD"></td><td><input id="tytSosyalY"></td><td><span id="tytSosyalN">0</span></td></tr>
+      <tr><td>Matematik</td><td><input id="tytMatD"></td><td><input id="tytMatY"></td><td><span id="tytMatN">0</span></td></tr>
+      <tr><td>Fen</td><td><input id="tytFenD"></td><td><input id="tytFenY"></td><td><span id="tytFenN">0</span></td></tr>
+    </table>
+    <button onclick="hesaplaTYT()">Hesapla</button>
+  </div>
+
+  <!-- AYT Net Hesaplama -->
+  <div id="netayt" class="section">
+    <h2>AYT Net Hesaplama</h2>
+    <table>
+      <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
+      <tr><td>Edebiyat</td><td><input id="aytEdD"></td><td><input id="aytEdY"></td><td><span id="aytEdN">0</span></td></tr>
+      <tr><td>Tarih</td><td><input id="aytTarD"></td><td><input id="aytTarY"></td><td><span id="aytTarN">0</span></td></tr>
+      <tr><td>Coğrafya</td><td><input id="aytCogD"></td><td><input id="aytCogY"></td><td><span id="aytCogN">0</span></td></tr>
+      <tr><td>Matematik</td><td><input id="aytMatD"></td><td><input id="aytMatY"></td><td><span id="aytMatN">0</span></td></tr>
+      <tr><td>Fizik</td><td><input id="aytFizD"></td><td><input id="aytFizY"></td><td><span id="aytFizN">0</span></td></tr>
+      <tr><td>Kimya</td><td><input id="aytKimD"></td><td><input id="aytKimY"></td><td><span id="aytKimN">0</span></td></tr>
+      <tr><td>Biyoloji</td><td><input id="aytBioD"></td><td><input id="aytBioY"></td><td><span id="aytBioN">0</span></td></tr>
+    </table>
+    <button onclick="hesaplaAYT()">Hesapla</button>
+  </div>
+
+  <footer>© 2025 Efe Sonar | Tüm hakları saklıdır.</footer>
+
   <script>
-    function updateCountdown() {
-      const examDate = new Date("2026-06-15T09:00:00");
-      const now = new Date();
-      const diff = examDate - now;
+    const targets = {
+      tyt: new Date('2025-06-14T10:00:00'),
+      ayt: new Date('2025-06-15T10:00:00'),
+      yks: new Date('2025-06-14T10:00:00'),
+      ly: new Date('2025-06-20T10:00:00')
+    };
 
-      if (diff <= 0) {
-        document.getElementById("yksCountdown").innerText = "⏰ Sınav zamanı geldi!";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      document.getElementById("yksCountdown").innerText =
-        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
-    }
-
-    setInterval(updateCountdown, 1000);
-  </script>
-
-</body>
-</html>
+    function
