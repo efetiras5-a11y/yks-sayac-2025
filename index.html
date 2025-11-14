@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Geri Sayım Paneli + Mini Oyunlar</title>
+  <title>Geri Sayım Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow">
   <meta name="google-site-verification" content="y2LjsoLMCmnqRdC4hrUBF-pCCCn8N3PrBlBRh_TTF3U" />
@@ -57,89 +57,51 @@
       font-weight: bold;
       margin-top: 15px;
     }
-    .lgs-theme { background: linear-gradient(to right, #ff6a00, #ee0979); color: white; }
-    .tyt-theme { background: linear-gradient(to right, #00c6ff, #0072ff); color: white; }
-    .tatil-theme { background: linear-gradient(to right, #43cea2, #185a9d); color: white; }
-    .donem-theme { background: linear-gradient(to right, #f7971e, #ffd200); color: white; }
+    .lgs-theme {
+      background: linear-gradient(to right, #ff6a00, #ee0979);
+      color: white;
+    }
+    .tyt-theme {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+    }
+    .tatil-theme {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
+    }
+    .donem-theme {
+      background: linear-gradient(to right, #f7971e, #ffd200);
+      color: white;
+    }
+    .share-buttons {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .share-buttons a {
+      display: inline-block;
+      margin: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+    .share-buttons a:hover {
+      background: #eaeaea;
+      transform: scale(1.05);
+    }
+    .share-buttons img {
+      width: 24px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 13px;
       color: #777;
-    }
-
-    /* Mini Oyunlar */
-    #miniGameButton {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ff9800;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-    #miniGamePanel {
-      position: fixed;
-      bottom: 70px;
-      right: 20px;
-      width: 320px;
-      height: 420px;
-      background: white;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      display: none;
-      flex-direction: column;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 1000;
-      overflow: hidden;
-    }
-    #gameMenu {
-      display: flex;
-      justify-content: space-around;
-      padding: 10px;
-      background: #f5f5f5;
-      border-bottom: 1px solid #ddd;
-    }
-    .gameItem {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      width: 80px;
-    }
-    .gameItem img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 5px;
-    }
-    #gameFrameContainer {
-      flex: 1;
-      display: none;
-      flex-direction: column;
-    }
-    #gameHeader {
-      background: #eee;
-      padding: 6px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: bold;
-      border-bottom: 1px solid #ccc;
-    }
-    #gameHeader button {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    #gameFrame {
-      width: 100%;
-      height: 100%;
-      border: none;
     }
   </style>
 </head>
@@ -167,37 +129,22 @@
     <h2>Dönem Tatiline Kalan Süre</h2>
     <div id="donemCountdown" class="countdown">Yükleniyor...</div>
   </div>
-
-  <!-- Mini Oyunlar Butonu -->
-  <div id="miniGameButton" onclick="toggleGameMenu()">🎮 Mini Oyunlar</div>
-
-  <!-- Mini Oyun Paneli -->
-  <div id="miniGamePanel">
-    <div id="gameMenu">
-      <div class="gameItem" onclick="loadGame('flappy')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Flappy_Bird_icon.png" alt="Flappy Bird">
-        <span>Flappy Bird</span>
-      </div>
-      <div class="gameItem" onclick="loadGame('2048')">
-        <img src="https://play-lh.googleusercontent.com/7z3Z9zqz1ZJ4Zzv7xv1qzqzqzqzqzqzqzqzqzqzqzq=s48" alt="2048">
-        <span>2048</span>
-      </div>
-      <div class="gameItem" onclick="loadGame('dino')">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Dino Run">
-        <span>Dino Run</span>
-      </div>
-    </div>
-    <div id="gameFrameContainer">
-      <div id="gameHeader">
-        <span id="gameTitle">Oyun</span>
-        <button onclick="closeGame()">×</button>
-      </div>
-      <iframe id="gameFrame" src="" frameborder="0"></iframe>
-    </div>
+  <div class="share-buttons">
+    <p>Bu sayfayı paylaş:</p>
+    <a href="https://api.whatsapp.com/send?text=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">WhatsApp
+    </a>
+    <a href="https://twitter.com/intent/tweet?text=YKS%20Geri%20Sayım%20Paneli%202025&url=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="Twitter">Twitter
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://efetiras5-a11y.github.io/yks-sayac-2025/" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">Facebook
+    </a>
+    <p style="margin-top:10px; font-size:13px; color:#555;">
+      Instagram bağlantı paylaşımını desteklemez. Linki profilinize veya hikayenize ekleyebilirsiniz.
+    </p>
   </div>
-
   <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
-
   <script>
     function getNextDate(month, day, hour = 10) {
       const now = new Date();
@@ -217,4 +164,37 @@
     function updateCountdown(id) {
       const now = new Date();
       const target = targets[id];
-      const diff =
+      const diff = target - now;
+      const isToday =
+        now.getFullYear() === target.getFullYear() &&
+        now.getMonth() === target.getMonth() &&
+        now.getDate() === target.getDate();
+      if (diff <= 0 && isToday) {
+        document.getElementById(id + "Countdown").innerText = "🎉 Süre doldu!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById(id + "Countdown").innerText =
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
+    }
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("show");
+        sec.style.display = "none";
+      });
+      const active = document.getElementById(id);
+      if (active) {
+        active.style.display = "block";
+        setTimeout(() => active.classList.add("show"), 10);
+        updateCountdown(id);
+        clearInterval(window.activeTimer);
+        window.activeTimer = setInterval(() => updateCountdown(id), 1000);
+      }
+    }
+    showSection("lgs");
+  </script>
+</body>
+</html>
