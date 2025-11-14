@@ -156,7 +156,7 @@
     <button onclick="hesaplaAYT()">Hesapla</button>
   </div>
 
-  <footer>© 2025 Efe Sonar | Tüm hakları saklıdır.</footer>
+  <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
 
   <script>
     const targets = {
@@ -173,4 +173,5 @@
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds =
+        const seconds = Math.floor((diff / 1000) % 60);
+        const
