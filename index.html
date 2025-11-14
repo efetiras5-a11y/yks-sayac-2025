@@ -2,177 +2,137 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>YKS Geri Sayım ve Net Hesaplama</title>
+  <title>Geri Sayım Paneli</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --bg: #f0f0f0;
-      --text: #000;
-      --primary: #007bff;
-      --hover: #0056b3;
-      --shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    }
-
-    body.dark {
-      --bg: #121212;
-      --text: #fff;
-      --primary: #bb86fc;
-      --hover: #985eff;
-    }
-
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 20px;
-      transition: background 0.3s ease, color 0.3s ease;
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     h1 {
       text-align: center;
+      margin: 20px;
       font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .toggle-theme {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
     }
 
     .menu {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
     .menu button {
-      background-color: var(--primary);
-      color: white;
+      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
-      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .menu button:hover {
-      background-color: var(--hover);
+      transition: background 0.3s ease;
     }
 
     .section {
       display: none;
-      background: var(--bg);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
       text-align: center;
+      padding: 30px;
+      border-radius: 10px;
+      margin: 0 20px;
     }
 
     .countdown {
-      font-size: 20px;
+      font-size: 24px;
       font-weight: bold;
-      margin-top: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
       margin-top: 15px;
     }
 
-    th, td {
-      padding: 7px;
-      text-align: center;
-      border: 1px solid #ccc;
+    /* Temalar */
+    .lgs-theme {
+      background: linear-gradient(to right, #ff6a00, #ee0979);
+      color: white;
     }
 
-    input {
-      width: 60px;
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      text-align: center;
+    .tyt-theme {
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+    }
+
+    .tatil-theme {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+      color: white;
     }
 
     footer {
       text-align: center;
+      margin-top: 40px;
       font-size: 13px;
-      margin-top: 30px;
       color: #777;
     }
   </style>
 </head>
 <body>
-  <h1>YKS Geri Sayım ve Net Hesaplama Paneli</h1>
-  <button class="toggle-theme" onclick="toggleTheme()">Temayı Değiştir</button>
+  <h1>Geri Sayım Paneli</h1>
 
   <div class="menu">
+    <button onclick="showSection('lgs')">LGS</button>
     <button onclick="showSection('tyt')">TYT</button>
-    <button onclick="showSection('ayt')">AYT</button>
-    <button onclick="showSection('yks')">YKS</button>
-    <button onclick="showSection('ly')">LY</button>
-    <button onclick="showSection('nettyt')">TYT Net</button>
-    <button onclick="showSection('netayt')">AYT Net</button>
+    <button onclick="showSection('tatil')">Yaz Tatili</button>
   </div>
 
-  <div id="tyt" class="section"><h2>TYT</h2><div id="tytCountdown" class="countdown"></div></div>
-  <div id="ayt" class="section"><h2>AYT</h2><div id="aytCountdown" class="countdown"></div></div>
-  <div id="yks" class="section"><h2>YKS</h2><div id="yksCountdown" class="countdown"></div></div>
-  <div id="ly" class="section"><h2>LY</h2><div id="lyCountdown" class="countdown"></div></div>
-
-  <div id="nettyt" class="section">
-    <h2>TYT Net Hesaplama</h2>
-    <table>
-      <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
-      <tr><td>Türkçe</td><td><input id="tytTurkceD"></td><td><input id="tytTurkceY"></td><td><span id="tytTurkceN">0</span></td></tr>
-      <tr><td>Sosyal</td><td><input id="tytSosyalD"></td><td><input id="tytSosyalY"></td><td><span id="tytSosyalN">0</span></td></tr>
-      <tr><td>Matematik</td><td><input id="tytMatD"></td><td><input id="tytMatY"></td><td><span id="tytMatN">0</span></td></tr>
-      <tr><td>Fen</td><td><input id="tytFenD"></td><td><input id="tytFenY"></td><td><span id="tytFenN">0</span></td></tr>
-    </table>
-    <button onclick="hesaplaTYT()">Hesapla</button>
+  <div id="lgs" class="section lgs-theme">
+    <h2>LGS'ye Kalan Süre</h2>
+    <div id="lgsCountdown" class="countdown">Yükleniyor...</div>
   </div>
 
-  <div id="netayt" class="section">
-    <h2>AYT Net Hesaplama</h2>
-    <table>
-      <tr><th>Ders</th><th>Doğru</th><th>Yanlış</th><th>Net</th></tr>
-      <tr><td>Edebiyat</td><td><input id="aytEdD"></td><td><input id="aytEdY"></td><td><span id="aytEdN">0</span></td></tr>
-      <tr><td>Tarih</td><td><input id="aytTarD"></td><td><input id="aytTarY"></td><td><span id="aytTarN">0</span></td></tr>
-      <tr><td>Coğrafya</td><td><input id="aytCogD"></td><td><input id="aytCogY"></td><td><span id="aytCogN">0</span></td></tr>
-      <tr><td>Matematik</td><td><input id="aytMatD"></td><td><input id="aytMatY"></td><td><span id="aytMatN">0</span></td></tr>
-      <tr><td>Fizik</td><td><input id="aytFizD"></td><td><input id="aytFizY"></td><td><span id="aytFizN">0</span></td></tr>
-      <tr><td>Kimya</td><td><input id="aytKimD"></td><td><input id="aytKimY"></td><td><span id="aytKimN">0</span></td></tr>
-      <tr><td>Biyoloji</td><td><input id="aytBioD"></td><td><input id="aytBioY"></td><td><span id="aytBioN">0</span></td></tr>
-    </table>
-    <button onclick="hesaplaAYT()">Hesapla</button>
+  <div id="tyt" class="section tyt-theme">
+    <h2>TYT'ye Kalan Süre</h2>
+    <div id="tytCountdown" class="countdown">Yükleniyor...</div>
+  </div>
+
+  <div id="tatil" class="section tatil-theme">
+    <h2>Yaz Tatiline Kalan Süre</h2>
+    <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
   </div>
 
   <footer>© 2025 Efe Tıraş | Tüm hakları saklıdır.</footer>
 
   <script>
     const targets = {
-      tyt: new Date('2025-06-14T10:00:00'),
-      ayt: new Date('2025-06-15T10:00:00'),
-      yks: new Date('2025-06-14T10:00:00'),
-      ly: new Date('2025-06-20T10:00:00')
+      lgs: new Date("2025-06-01T09:00:00"),
+      tyt: new Date("2025-06-14T10:00:00"),
+      tatil: new Date("2025-06-20T12:00:00")
     };
 
-    function updateCountdowns() {
+    function updateCountdown(id) {
       const now = new Date();
-      for (const [id, date] of Object.entries(targets)) {
-        const diff = date - now;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-        const
+      const diff = targets[id] - now;
 
+      if (diff <= 0) {
+        document.getElementById(id + "Countdown").innerText = "🎉 Zamanı geldi!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById(id + "Countdown").innerText =
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
+    }
+
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+      document.getElementById(id).style.display = "block";
+
+      updateCountdown(id);
+      clearInterval(window.activeTimer);
+      window.activeTimer = setInterval(() => updateCountdown(id), 1000);
+    }
+
+    showSection("lgs");
+  </script>
+</body>
+</html>
