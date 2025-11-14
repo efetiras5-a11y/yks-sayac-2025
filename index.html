@@ -31,7 +31,13 @@
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    .menu button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1;
     }
 
     .section {
@@ -40,6 +46,15 @@
       padding: 30px;
       border-radius: 10px;
       margin: 0 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .section.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .countdown {
@@ -48,7 +63,6 @@
       margin-top: 15px;
     }
 
-    /* Temalar */
     .lgs-theme {
       background: linear-gradient(to right, #ff6a00, #ee0979);
       color: white;
@@ -110,7 +124,7 @@
       const diff = targets[id] - now;
 
       if (diff <= 0) {
-        document.getElementById(id + "Countdown").innerText = "🎉 Zamanı geldi!";
+        document.getElementById(id + "Countdown").innerText = "Süre doldu!";
         return;
       }
 
@@ -124,8 +138,14 @@
     }
 
     function showSection(id) {
-      document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
-      document.getElementById(id).style.display = "block";
+      document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("show");
+        sec.style.display = "none";
+      });
+
+      const active = document.getElementById(id);
+      active.style.display = "block";
+      setTimeout(() => active.classList.add("show"), 10);
 
       updateCountdown(id);
       clearInterval(window.activeTimer);
