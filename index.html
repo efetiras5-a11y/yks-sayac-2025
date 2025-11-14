@@ -81,21 +81,37 @@
       color: white;
     }
 
-    .aratatil-theme {
-      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    .donem-theme {
+      background: linear-gradient(to right, #f7971e, #ffd200);
       color: white;
     }
 
     .share-buttons {
       text-align: center;
-      margin-top: 30px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      max-width: 500px;
+      background: #f9f9f9;
     }
 
     .share-buttons a {
-      margin: 0 10px;
+      display: inline-block;
+      margin: 10px;
       text-decoration: none;
       font-weight: bold;
       color: #333;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .share-buttons a:hover {
+      background: #eaeaea;
+      transform: scale(1.05);
     }
 
     .share-buttons img {
@@ -119,7 +135,7 @@
     <button onclick="showSection('lgs')">LGS</button>
     <button onclick="showSection('tyt')">TYT</button>
     <button onclick="showSection('tatil')">Yaz Tatili</button>
-    <button onclick="showSection('aratatil')">Ara Tatil</button>
+    <button onclick="showSection('donem')">Dönem Tatili</button>
   </div>
 
   <div id="lgs" class="section lgs-theme">
@@ -137,9 +153,9 @@
     <div id="tatilCountdown" class="countdown">Yükleniyor...</div>
   </div>
 
-  <div id="aratatil" class="section aratatil-theme">
-    <h2>Ara Tatile Kalan Süre</h2>
-    <div id="aratatilCountdown" class="countdown">Yükleniyor...</div>
+  <div id="donem" class="section donem-theme">
+    <h2>Dönem Tatiline Kalan Süre</h2>
+    <div id="donemCountdown" class="countdown">Yükleniyor...</div>
   </div>
 
   <div class="share-buttons">
@@ -175,7 +191,7 @@
       lgs: getNextDate(6, 1, 9),
       tyt: getNextDate(6, 14, 10),
       tatil: getNextDate(6, 20, 12),
-      aratatil: getNextDate(11, 8, 9)
+      donem: getNextDate(1, 19, 9) // Ocak dönem tatili
     };
 
     function updateCountdown(id) {
@@ -199,25 +215,4 @@
       const seconds = Math.floor((diff / 1000) % 60);
 
       document.getElementById(id + "Countdown").innerText =
-        `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
-    }
-
-    function showSection(id) {
-      document.querySelectorAll(".section").forEach(sec => {
-        sec.classList.remove("show");
-        sec.style.display = "none";
-      });
-
-      const active = document.getElementById(id);
-      active.style.display = "block";
-      setTimeout(() => active.classList.add("show"), 10);
-
-      updateCountdown(id);
-      clearInterval(window.activeTimer);
-      window.activeTimer = setInterval(() => updateCountdown(id), 1000);
-    }
-
-    showSection("lgs");
-  </script>
-</body>
-</html>
+        `${days} gün ${hours} saat ${minutes} dakika ${seconds
